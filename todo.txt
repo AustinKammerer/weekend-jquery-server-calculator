@@ -1,0 +1,54 @@
+Base mode
+
+    [ ] 2 number inputs
+        [ ] 2 number inputs
+        [ ] 1 select input
+            
+   
+    [ ] 6 buttons
+        [ ] Add
+        [ ] Subtract
+        [ ] Multiply
+        [ ] Divide
+        [ ] the 4 operator buttons will have a click listener that sets a variable equal to the type of operation based on the button clicked
+        [ ] 1 'Equals' button
+            [ ] captures in the inputs
+            [ ] sends a POST request
+        [ ] 1 'C' button
+            [ ] clears in input fields
+    
+    [ ] Initialize the DOM (will be the same rendor function that is called after GET)
+
+    Client Side
+    [ ] function with GET request to get the history of calculations (will include the current calc)
+        [ ] single route '/calc'
+
+    [ ] function with POST request to send the calculation to be made
+        [ ] 2 values from inputs
+        [ ] 1 calculation type from select input
+        [ ] call the GET function again
+    
+    Server Side
+    [ ] array for calculation history - calculations
+
+    [ ] app.get method
+        [ ] '/calc' 
+            [ ] sends calculations
+    
+    [ ] app.post method
+        [ ] '/calc' callback
+            [ ] determines the calc type
+            [ ] make the calculation
+            [ ] push the info to calculations
+
+Stretch mode
+
+    [ ] convert the interface as shown
+
+    [ ] button to clear history
+        [ ] calls a DELETE request
+
+    [ ] validate input values before calling POST request
+
+    [ ] click a history entry to rerun the calculation
+        [ ] also display the answer in the interface
