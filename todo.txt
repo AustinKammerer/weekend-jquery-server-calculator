@@ -14,19 +14,19 @@ Base mode
         [ ] 1 'Equals' button
             [x] captures in the inputs
             [ ] sends a POST request
-        [ ] 1 'C' button
-            [ ] clears in input fields
+        [x] 1 'C' button
+            [x] clears in input fields
     
-    [ ] Initialize the DOM (will be the same rendor function that is called after GET)
+    [ ] Initialize the DOM (will be the same render function that is called after GET)
 
     Client Side
     [ ] function with GET request to get the history of calculations (will include the current calc)
         [ ] single route '/calc'
 
-    [ ] function with POST request to send the calculation to be made
-        [ ] 2 values from inputs
-        [ ] 1 calculation type from select input
-        [ ] call the GET function again
+    [x] function with POST request to send the calculation to be made
+        [x] 2 values from inputs
+        [x] 1 calculation type from select input
+        [x] call the GET function again
     
     Server Side
     [ ] array for calculation history - calculations

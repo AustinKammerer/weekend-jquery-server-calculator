@@ -46,7 +46,7 @@ function calculate() {
       },
     })
       .then(function (res) {
-        getHistory();
+        getCalculations();
       })
       .catch(function (err) {
         alert("SERVER ERROR: " + err.message);
@@ -55,9 +55,43 @@ function calculate() {
 }
 
 // GET function
-
+function getCalculations() {
+  $.ajax({
+    method: "GET",
+    url: "/calc",
+  })
+    .then(function (res) {
+      console.log("SUCCESS", res);
+      render(res);
+    })
+    .catch(function (err) {
+      console.log("FAIL", err);
+    });
+}
 // render function
-
+function render(calculations) {
+  let output = $("#output");
+  let calcsList = $("#calcsList");
+  output.empty();
+  calcsList.empty();
+  // loop over the server's response (array of calculation objects)
+  for (let i = 0; i < calculations.length; i++) {
+    // display the answer to the most recent calculation (calcs are unshifted instead of pushed)
+    if ((i = 0)) {
+      output.append(calculations[i].answer);
+    }
+    // each calculation will be captured as a JQ object so data can be added to it
+    let calc = $(`
+        <li>${calculations[i].value1} ${calculations[i].operation} ${calculations[i].value2} = ${calculations[i].answer}</li>
+        `);
+    // data is added to the calc li
+    calc.data("value1", calculations[i].value1);
+    calc.data("value2", calculations[i].value1);
+    calc.data("operation", calculations[i].operation);
+    // append to the DOM
+    calcsList.append(calc);
+  }
+}
 // clear inputs function
 function clearInputs() {
   $("#value1Input").val("");
