@@ -1,20 +1,23 @@
 function calculate(req) {
+  let value1 = Number(req.value1);
+  let value2 = Number(req.value2);
   let answer;
   switch (req.operation) {
-    case "add":
-      answer = req.value1 + req.value2;
+    case "+":
+      answer = value1 + value2;
       break;
-    case "sub":
-      answer = req.value1 - req.value2;
+    case "-":
+      answer = value1 - value2;
       break;
-    case "mult":
-      answer = req.value1 * req.value2;
+    case "*":
+      answer = value1 * value2;
       break;
-    case "div":
-      answer = req.value1 / req.value2;
+    case "/":
+      answer = value1 / value2;
       break;
   }
   req.answer = answer;
+  return req;
 }
 
 module.exports = calculate;

@@ -35,19 +35,20 @@ function calculate() {
     alert("ENTER VALUE 2");
     valid = false;
   }
-  console.log(valid);
+  console.log("valid:", valid);
   // only trigger POST if valid is not flipped to false
   if (valid) {
     $.ajax({
       method: "POST",
       url: "/calc",
       data: {
-        value1: Number(value1),
-        value2: Number(value2),
+        value1: value1,
+        value2: value2,
         operation: operation,
       },
     })
       .then(function (res) {
+        console.log("POST SUCCESS", res);
         getCalculations();
       })
       .catch(function (err) {
@@ -72,25 +73,26 @@ function getCalculations() {
     });
 }
 // render function
-function render(calculations) {
+function render(calcsList) {
+  console.log("in render");
   let output = $("#output");
   let calcsListOnDOM = $("#calcsListOnDOM");
   output.empty();
   calcsListOnDOM.empty();
   // loop over the server's response (array of calculation objects)
-  for (let i = 0; i < calculations.length; i++) {
+  for (let i = 0; i < calcsList.length; i++) {
     // display the answer to the most recent calculation (calcs are unshifted instead of pushed)
-    if ((i = 0)) {
-      output.append(calculations[i].answer);
+    if (i === 0) {
+      output.text(calcsList[i].answer);
     }
     // each calculation will be captured as a JQ object so data can be added to it
     let calc = $(`
-        <li>${calculations[i].value1} ${calculations[i].operation} ${calculations[i].value2} = ${calculations[i].answer}</li>
+        <li>${calcsList[i].value1} ${calcsList[i].operation} ${calcsList[i].value2} = ${calcsList[i].answer}</li>
         `);
     // data is added to the calc li
-    calc.data("value1", calculations[i].value1);
-    calc.data("value2", calculations[i].value1);
-    calc.data("operation", calculations[i].operation);
+    calc.data("value1", calcsList[i].value1);
+    calc.data("value2", calcsList[i].value1);
+    calc.data("operation", calcsList[i].operation);
     // append to the DOM
     calcsListOnDOM.append(calc);
   }

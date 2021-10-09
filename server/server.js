@@ -20,10 +20,12 @@ app.get("/calc", (req, res) => {
   res.send(calcsList);
 }); // GET route
 
-app.post("/calc", (res, req) => {
+app.post("/calc", (req, res) => {
   let calcToMake = req.body;
   console.log("Request:", calcToMake);
   calcsList.unshift(calculate(calcToMake));
+  console.log("calcList:", calcsList);
   // calculate adds an answer property to the request
   // the request is added to the front of the calcsList array
+  res.sendStatus(201);
 }); // POST route
