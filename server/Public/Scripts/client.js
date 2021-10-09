@@ -6,7 +6,7 @@ function pageLoad() {
   // calculate the desired operation
   $("#equalBtn").on("click", calculate);
   // clear inputs
-  //   $("clearBtn").on("click", clearInputs);
+  $("#clearBtn").on("click", clearInputs);
 }
 
 function setOperation() {
@@ -15,54 +15,43 @@ function setOperation() {
 }
 // POST function
 function calculate() {
-  console.log("=");
   // validate inputs
   let value1 = $("#value1Input").val();
-  console.log(value1);
   let value2 = $("#value2Input").val();
-  console.log(value2);
   let operation = $("#equalBtn").data("operation");
-  console.log(operation);
+  let valid = true;
+  // if any input is an empty string (operation starts as empty string), valid is flipped to false
   if (operation === "") {
     alert("SELECT OPERATOR");
+    valid = false;
   }
   if (value1 === "") {
     alert("ENTER VALUE 1");
+    valid = false;
   }
   if (value2 === "") {
     alert("ENTER VALUE 2");
+    valid = false;
   }
-
-  //   switch ("") {
-  //     case operation:
-  //       console.log("case1");
-
-  //       break;
-  //     case value1:
-  //       console.log("case2");
-
-  //       break;
-  //     case value2:
-  //       console.log("case3");
-
-  //       break;
-  // case value1 && value2:
-  //   alert("ENTER VALUES");
-  //   break;
-
-  //   break;
-
-  //   $.ajax({
-  //     method: "POST",
-  //     url: "/calc",
-  //     data: {
-  //       value1: value1,
-  //       value2: value2,
-  //       operation: operation,
-  //     },
-  //   }).then(function (res) {
-  //     getHistory();
-  //   });
+  console.log(valid);
+  // only trigger POST if valid is not flipped to false
+  if (valid) {
+    $.ajax({
+      method: "POST",
+      url: "/calc",
+      data: {
+        value1: value1,
+        value2: value2,
+        operation: operation,
+      },
+    })
+      .then(function (res) {
+        getHistory();
+      })
+      .catch(function (err) {
+        alert("SERVER ERROR: " + err.message);
+      });
+  }
 }
 
 // GET function
@@ -70,3 +59,8 @@ function calculate() {
 // render function
 
 // clear inputs function
+function clearInputs() {
+  $("#value1Input").val("");
+  $("#value2Input").val("");
+  $("#equalBtn").data("operation", "");
+}
