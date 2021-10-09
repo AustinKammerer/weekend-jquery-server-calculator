@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/vendors/jquery-3.6.0.min.js"></script>
     <script src="/scripts/client.js"></script>
-    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.css">
     <title>jQuery Server Calculator</title>
 </head>
@@ -18,13 +18,13 @@
     </header>
     <div id="interfaceContainer">
         <input type="number" id="value1Input" placeholder="value 1" required>
-        <button id="addBtn">+</button>
-        <button id="subBtn">-</button>
-        <button id="multBtn">*</button>
-        <button id="divBtn">/</button>
+        <button class="operatorBtn btn btn-outline-secondary" id="addBtn" data-operation="add">+</button>
+        <button class="operatorBtn btn btn-outline-secondary" id="subBtn" data-operation="sub">-</button>
+        <button class="operatorBtn btn btn-outline-secondary" id="multBtn" data-operation="mult">*</button>
+        <button class="operatorBtn btn btn-outline-secondary" id="divBtn" data-operation="div">/</button>
         <input type="number" id="value2Input" placeholder="value 2" required>
-        <button id="equalBtn">=</button>
-        <button id="clearBtn">C</button>
+        <button class="btn btn-outline-secondary" id="equalBtn">=</button>
+        <button class="btn btn-outline-secondary" id="clearBtn">C</button>
     </div>
     <div id="outputContainer">
         <h2 id="output"></h2>

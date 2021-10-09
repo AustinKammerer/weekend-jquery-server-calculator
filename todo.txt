@@ -1,18 +1,18 @@
 Base mode
 
-    [ ] 2 number inputs
-        [ ] 2 number inputs
-        [ ] 1 select input
+    [x] 2 number inputs
+        [x] 2 number inputs
+        [x] 1 select input
             
    
     [ ] 6 buttons
-        [ ] Add
-        [ ] Subtract
-        [ ] Multiply
-        [ ] Divide
-        [ ] the 4 operator buttons will have a click listener that sets a variable equal to the type of operation based on the button clicked
+        [x] Add
+        [x] Subtract
+        [x] Multiply
+        [x] Divide
+        [x] the 4 operator buttons will have a click listener that sets a variable equal to the type of operation based on the button clicked
         [ ] 1 'Equals' button
-            [ ] captures in the inputs
+            [x] captures in the inputs
             [ ] sends a POST request
         [ ] 1 'C' button
             [ ] clears in input fields
