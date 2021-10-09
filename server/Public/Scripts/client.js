@@ -42,8 +42,8 @@ function calculate() {
       method: "POST",
       url: "/calc",
       data: {
-        value1: value1,
-        value2: value2,
+        value1: Number(value1),
+        value2: Number(value2),
         operation: operation,
       },
     })
@@ -65,17 +65,18 @@ function getCalculations() {
     .then(function (res) {
       console.log("SUCCESS", res);
       render(res);
+      $("#equalBtn").data("operation", ""); // sets/resets data-operation
     })
     .catch(function (err) {
-      console.log("FAIL", err);
+      console.log("GET FAIL", err.status);
     });
 }
 // render function
 function render(calculations) {
   let output = $("#output");
-  let calcsList = $("#calcsList");
+  let calcsListOnDOM = $("#calcsListOnDOM");
   output.empty();
-  calcsList.empty();
+  calcsListOnDOM.empty();
   // loop over the server's response (array of calculation objects)
   for (let i = 0; i < calculations.length; i++) {
     // display the answer to the most recent calculation (calcs are unshifted instead of pushed)
@@ -91,7 +92,7 @@ function render(calculations) {
     calc.data("value2", calculations[i].value1);
     calc.data("operation", calculations[i].operation);
     // append to the DOM
-    calcsList.append(calc);
+    calcsListOnDOM.append(calc);
   }
 }
 // clear inputs function
