@@ -5,23 +5,23 @@ Base mode
         [x] 1 select input
             
    
-    [ ] 6 buttons
+    [x] 6 buttons
         [x] Add
         [x] Subtract
         [x] Multiply
         [x] Divide
         [x] the 4 operator buttons will have a click listener that sets a variable equal to the type of operation based on the button clicked
-        [ ] 1 'Equals' button
+        [x] 1 'Equals' button
             [x] captures in the inputs
-            [ ] sends a POST request
+            [x] sends a POST request
         [x] 1 'C' button
             [x] clears in input fields
     
-    [ ] Initialize the DOM (will be the same render function that is called after GET)
+    [x] Initialize the DOM (will be the same render function that is called after GET)
 
     Client Side
-    [ ] function with GET request to get the history of calculations (will include the current calc)
-        [ ] single route '/calc'
+    [x] function with GET request to get the history of calculations (will include the current calc)
+        [x] single route '/calc'
 
     [x] function with POST request to send the calculation to be made
         [x] 2 values from inputs
@@ -49,6 +49,8 @@ Stretch mode
         [ ] calls a DELETE request
 
     [ ] validate input values before calling POST request
+
+    [ ] validate input values on server side
 
     [ ] click a history entry to rerun the calculation
         [ ] also display the answer in the interface

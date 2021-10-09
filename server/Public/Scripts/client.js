@@ -7,6 +7,8 @@ function pageLoad() {
   $("#equalBtn").on("click", calculate);
   // clear inputs
   $("#clearBtn").on("click", clearInputs);
+  // initialize DOM
+  getCalculations();
 }
 
 function setOperation() {
