@@ -57,7 +57,7 @@ function calculate() {
   if (valid) {
     $.ajax({
       method: "POST",
-      url: "/calc",
+      url: "/calculate",
       data: {
         value1: value1,
         value2: value2,
@@ -79,7 +79,7 @@ function calculate() {
 function getCalculations() {
   $.ajax({
     method: "GET",
-    url: "/calc",
+    url: "/calculate",
   })
     .then(function (res) {
       console.log("GET SUCCESS", res);

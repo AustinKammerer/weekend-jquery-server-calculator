@@ -16,14 +16,14 @@ app.use(express.static("server/public")); // static files route
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/calc", (req, res) => {
-  console.log(calcsList);
+app.get("/calculate", (req, res) => {
+  console.log("GET Request:", calcsList);
   res.send(calcsList);
 }); // GET route
 
-app.post("/calc", (req, res) => {
+app.post("/calculate", (req, res) => {
   let calcToMake = req.body;
-  console.log("Request:", calcToMake);
+  console.log("POST Request:", calcToMake);
   if (
     !functions.validateOperation(calcToMake) ||
     !functions.validateValue1(calcToMake) ||
@@ -50,7 +50,7 @@ app.get("/entry/:index", (req, res) => {
 
 app.delete("/entry/:index", (req, res) => {
   let index = req.params.index;
-  console.log("Request: ", index);
+  console.log("DELETE Request: ", index);
   if (index === "all") {
     calcsList.splice(0, calcsList.length);
     console.log(calcsList);
