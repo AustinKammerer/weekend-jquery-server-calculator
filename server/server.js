@@ -41,3 +41,8 @@ app.post("/calc", (req, res) => {
     res.sendStatus(201);
   }
 }); // POST route
+
+app.get("/entry", (req, res) => {
+  let index = req.query.i;
+  res.send(calcsList[index]);
+}); // GET route
