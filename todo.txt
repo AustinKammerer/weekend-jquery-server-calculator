@@ -29,17 +29,17 @@ Base mode
         [x] call the GET function again
     
     Server Side
-    [ ] array for calculation history - calculations
+    [x] array for calculation history - calcsList
 
-    [ ] app.get method
-        [ ] '/calc' 
-            [ ] sends calculations
+    [x] app.get method
+        [x] '/calc' 
+            [x] sends calcsList
     
-    [ ] app.post method
-        [ ] '/calc' callback
-            [ ] determines the calc type
-            [ ] make the calculation
-            [ ] push the info to calculations
+    [x] app.post method
+        [x] '/calc' callback
+            [x] determines the calc type
+            [x] make the calculation
+            [x] push the info to calcsList
 
 Stretch mode
 
@@ -48,9 +48,9 @@ Stretch mode
     [ ] button to clear history
         [ ] calls a DELETE request
 
-    [ ] validate input values before calling POST request
+    [x] validate input values before calling POST request
 
-    [ ] validate input values on server side
+    [x] validate input values on server side
 
     [ ] click a history entry to rerun the calculation
         [ ] also display the answer in the interface

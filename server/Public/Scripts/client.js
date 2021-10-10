@@ -35,7 +35,6 @@ function calculate() {
     alert("ENTER VALUE 2");
     valid = false;
   }
-  console.log("valid:", valid);
   // only trigger POST if valid is not flipped to false
   if (valid) {
     $.ajax({
@@ -52,7 +51,8 @@ function calculate() {
         getCalculations();
       })
       .catch(function (err) {
-        alert("SERVER ERROR: " + err.message);
+        console.log(err);
+        alert("SERVER ERROR: " + err.responseJSON.msg);
       });
   }
 }
@@ -69,12 +69,12 @@ function getCalculations() {
       $("#equalBtn").data("operation", ""); // sets/resets data-operation
     })
     .catch(function (err) {
-      console.log("GET FAIL", err.status);
+      console.log("GET FAIL", err);
+      alert(`SERVER ERROR: ${err.status} (${err.statusText})`);
     });
 }
 // render function
 function render(calcsList) {
-  console.log("in render");
   let output = $("#output");
   let calcsListOnDOM = $("#calcsListOnDOM");
   output.empty();
