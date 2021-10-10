@@ -94,7 +94,13 @@ function render(calcsList) {
   //   output.empty();
   $("#calcsListOnDOM").empty();
   // display the answer to the most recent calculation (calcs are unshifted instead of pushed)
-  $("#output").text(calcsList[0].answer);
+  // display 0 if there is not a list yet
+  console.log(calcsList.length === 0);
+  if (calcsList.length === 0) {
+    $("#output").text("0");
+  } else {
+    $("#output").text(calcsList[0].answer);
+  }
   // loop over the server's response (array of calculation objects)
   for (let i = 0; i < calcsList.length; i++) {
     // each calculation will be captured as a JQ object so data can be added to it
