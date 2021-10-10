@@ -52,5 +52,6 @@ Stretch mode
 
     [x] validate input values on server side
 
-    [ ] click a history entry to rerun the calculation
-        [ ] also display the answer in the interface
+    [x] click a history entry to rerun the calculation
+        [x] also display the answer in the interface
+        [x] GET request using search parameters
