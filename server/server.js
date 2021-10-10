@@ -17,6 +17,7 @@ app.use(express.static("server/public")); // static files route
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/calc", (req, res) => {
+  console.log(calcsList);
   res.send(calcsList);
 }); // GET route
 
@@ -42,7 +43,22 @@ app.post("/calc", (req, res) => {
   }
 }); // POST route
 
-app.get("/entry", (req, res) => {
-  let index = req.query.i;
+app.get("/entry/:index", (req, res) => {
+  let index = req.params.index;
   res.send(calcsList[index]);
 }); // GET route
+
+app.delete("/entry/:index", (req, res) => {
+  let index = req.params.index;
+  console.log("Request: ", index);
+  if (index === "all") {
+    calcsList.splice(0, calcsList.length);
+    console.log(calcsList);
+    res.sendStatus(200);
+  } else if (Number(index) >= 0 && Number(index) < calcsList.length) {
+    calcsList.splice(Number(index), 1);
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(404);
+  }
+});

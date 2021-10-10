@@ -45,8 +45,10 @@ Stretch mode
 
     [ ] convert the interface as shown
 
-    [ ] button to clear history
-        [ ] calls a DELETE request
+    [x] button to clear history
+        [x] calls a DELETE request
+    
+    [ ] add button to each entry that deletes the entry
 
     [x] validate input values before calling POST request
 

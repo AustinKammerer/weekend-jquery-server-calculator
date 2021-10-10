@@ -7,12 +7,14 @@ function pageLoad() {
   $("#equalBtn").on("click", calculate);
   // clear inputs
   $("#clearBtn").on("click", clearInputs);
-  // all clear
+  // all clear (inputs and output)
   $("#allClearBtn").on("click", allClear);
+  // clear all entries
+  $("#entriesClearBtn").on("click", entryClear);
   // initialize DOM
   getCalculations();
-  // click listener for li elements
-  $("#calcsListOnDOM").on("click", ".entry", rerunCalc);
+  // click listener for entry li elements
+  $("#calcsListOnDOM").on("click", ".entry", runEntry);
 }
 
 function setOperation() {
@@ -80,7 +82,7 @@ function getCalculations() {
     url: "/calc",
   })
     .then(function (res) {
-      console.log("SUCCESS", res);
+      console.log("GET SUCCESS", res);
       render(res);
       $("#equalBtn").data("operation", ""); // sets/resets data-operation
     })
@@ -93,27 +95,26 @@ function getCalculations() {
 function render(calcsList) {
   //   output.empty();
   $("#calcsListOnDOM").empty();
-  // display the answer to the most recent calculation (calcs are unshifted instead of pushed)
   // display 0 if there is not a list yet
-  console.log(calcsList.length === 0);
   if (calcsList.length === 0) {
     $("#output").text("0");
-  } else {
+  } else if (calcsList.length !== 0) {
+    // display the answer to the most recent calculation (calcs are unshifted instead of pushed)
     $("#output").text(calcsList[0].answer);
-  }
-  // loop over the server's response (array of calculation objects)
-  for (let i = 0; i < calcsList.length; i++) {
-    // each calculation will be captured as a JQ object so data can be added to it
-    let calc = $(`
+    // loop over the server's response (array of calculation objects)
+    for (let i = 0; i < calcsList.length; i++) {
+      // each calculation will be captured as a JQ object so data can be added to it
+      let calc = $(`
         <li class="entry">${calcsList[i].value1} ${calcsList[i].operation} ${calcsList[i].value2} = ${calcsList[i].answer}</li>
         `);
-    // data is added to the calc li
-    calc.data("value1", calcsList[i].value1);
-    calc.data("value2", calcsList[i].value1);
-    calc.data("operation", calcsList[i].operation);
-    calc.data("index", i);
-    // append to the DOM
-    $("#calcsListOnDOM").append(calc);
+      // data is added to the calc li
+      calc.data("value1", calcsList[i].value1);
+      calc.data("value2", calcsList[i].value1);
+      calc.data("operation", calcsList[i].operation);
+      calc.data("index", i);
+      // append to the DOM
+      $("#calcsListOnDOM").append(calc);
+    }
   }
 }
 // clear inputs function
@@ -123,19 +124,20 @@ function clearInputs() {
   $("#equalBtn").data("operation", "");
   $(".operatorBtn").removeClass("selected");
 }
+// function to clear inputs AND reset output to 0
 function allClear() {
   clearInputs();
   $("#output").text("0");
 }
 
-// function to rerun a calculation from the list
-function rerunCalc() {
+// function to run an entry from the list
+function runEntry() {
   //   $("#value1Input").val($(this).data("value1"));
   //   $("#value2Input").val($(this).data("value2"));
   let index = $(this).data("index");
   $.ajax({
     method: "GET",
-    url: `/entry?i=${index}`,
+    url: `/entry/${index}`,
   })
     .then(function (res) {
       console.log("GET SUCCESS", res);
@@ -147,6 +149,24 @@ function rerunCalc() {
     })
     .catch(function (err) {
       console.log("GET FAIL", err);
+      alert(`SERVER ERROR: ${err.status} (${err.statusText})`);
+    });
+}
+
+// function to clear all entries, inputs, and reset output to 0
+function entryClear() {
+  allClear();
+  let index = $(this).data("index");
+  $.ajax({
+    method: "DELETE",
+    url: `/entry/${index}`,
+  })
+    .then(function (res) {
+      console.log("DELETE SUCCESS", res);
+      getCalculations();
+    })
+    .catch(function (err) {
+      console.log("DELETE FAIL", err);
       alert(`SERVER ERROR: ${err.status} (${err.statusText})`);
     });
 }
