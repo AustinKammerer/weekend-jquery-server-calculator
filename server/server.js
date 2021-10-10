@@ -16,7 +16,7 @@ app.use(express.static("server/public")); // static files route
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/calcs", (req, res) => {
+app.get("/calc", (req, res) => {
   res.send(calcsList);
 }); // GET route
 
