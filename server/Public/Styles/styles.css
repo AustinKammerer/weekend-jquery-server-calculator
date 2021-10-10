@@ -3,3 +3,8 @@
   background-color: #6c757d;
   box-shadow: 0 0 0 0.25rem rgb(108 117 125 / 50%);
 }
+
+.deleteEntry {
+  font-size: 0.5rem;
+  padding: 0.15rem 0.25rem;
+}

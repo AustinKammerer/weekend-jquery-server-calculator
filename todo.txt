@@ -48,7 +48,7 @@ Stretch mode
     [x] button to clear history
         [x] calls a DELETE request
     
-    [ ] add button to each entry that deletes the entry
+    [x] add button to each entry that deletes the entry
 
     [x] validate input values before calling POST request
 

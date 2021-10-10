@@ -15,6 +15,8 @@ function pageLoad() {
   getCalculations();
   // click listener for entry li elements
   $("#calcsListOnDOM").on("click", ".entry", runEntry);
+  // click listener for entry delete buttons
+  $("#calcsListOnDOM").on("click", ".deleteEntry", entryClear);
 }
 
 function setOperation() {
@@ -112,6 +114,10 @@ function render(calcsList) {
       calc.data("value2", calcsList[i].value1);
       calc.data("operation", calcsList[i].operation);
       calc.data("index", i);
+      // add a delete button
+      calc.append(
+        `<button class="deleteEntry btn btn-outline-danger">X</button>`
+      );
       // append to the DOM
       $("#calcsListOnDOM").append(calc);
     }
@@ -156,7 +162,12 @@ function runEntry() {
 // function to clear all entries, inputs, and reset output to 0
 function entryClear() {
   allClear();
-  let index = $(this).data("index");
+  let index;
+  if ($(this).attr("id") === "entriesClearBtn") {
+    index = $(this).data("index");
+  } else {
+    index = $(this).parent("li").data("index");
+  }
   $.ajax({
     method: "DELETE",
     url: `/entry/${index}`,
