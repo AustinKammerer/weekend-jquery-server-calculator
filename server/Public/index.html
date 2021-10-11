@@ -13,57 +13,97 @@
 </head>
 
 <body>
-    <header>
-        <h1>Server Side Calculator</h1>
-    </header>
-    <div id="interfaceContainer" class="container mb-2 p-0">
-        <div id="displayContainer" class="container mb-2 p-0">
-            <div class="row">
-                <input class="col-6" type="text" id="calcInput" placeholder="ready for input">
-                <button class="col btn btn-outline-secondary" id="delBtn">DEL</button>
-                <button class="col btn btn-outline-secondary" id="clearBtn">C</button>
-                <button class="col btn btn-outline-secondary" id="allClearBtn">AC</button>
-                <button class="col btn btn-outline-secondary" id="entriesClearBtn" data-index="all">EC</button>
-            </div>
-        </div>
-        <div id="inputsContainer" class="container mb-2">
-            <div class="row">
-                <button class="col numberBtn btn btn-outline-secondary" id="7Btn" data-number="7">7</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="8Btn" data-number="8">8</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="8Btn" data-number="9">9</button>
-                <button class="col operatorBtn btn btn-outline-secondary" id="addBtn" data-operation="+">+</button>
-            </div>
-            <div class="row">
-                <button class="col numberBtn btn btn-outline-secondary" id="4Btn" data-number="4">4</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="5Btn" data-number="5">5</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="6Btn" data-number="6">6</button>
-                <button class="col operatorBtn btn btn-outline-secondary" id="subBtn" data-operation="-">-</button>
-            </div>
-            <div class="row">
-                <button class="col numberBtn btn btn-outline-secondary" id="1Btn" data-number="1">1</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="2Btn" data-number="2">2</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="3Btn" data-number="3">3</button>
-                <button class="col operatorBtn btn btn-outline-secondary" id="multBtn" data-operation="*">*</button>
-            </div>
-            <div class="row">
-                <button class="col numberBtn btn btn-outline-secondary" id="0Btn" data-number="0">0</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="decimalBtn" data-number=".">.</button>
-                <button class="col btn btn-outline-secondary" id="equalBtn">=</button>
-                <button class="col operatorBtn btn btn-outline-secondary" id="divBtn" data-operation="/">/</button>
-            </div>
-        </div>
 
-    </div>
-    <div id="outputContainer" class="container mb-2">
+    <div id="interfaceContainer" class="container p-0">
         <div class="row">
-            <h2 id="output"></h2>
+            <h1 class="text-center">Server Calculator</h1>
         </div>
-    </div>
-    <div id="calcsContainer" class="container mb-2">
-        <div class="row">
-            <ul id="calcsListOnDOM"></ul>
+        <div id="displayContainer" class="row mb-1 g-2">
+            <!-- input field and clear buttons -->
+            <div class="col-6">
+                <input class="" type="text" id="calcInput" placeholder="ready for input">
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-danger" id="delBtn">DEL</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-danger" id="clearBtn">C</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-danger" id="allClearBtn">AC</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-danger" id="entriesClearBtn" data-index="all">EC</button>
+            </div>
         </div>
-
+        <!-- 1st row input buttons -->
+        <div id="inputContainer" class="row g-2 ms-auto me-auto">
+            <div class="col-3 d-grid">
+                <button class="numberBtn btn btn-outline-secondary" id="7Btn" data-number="7">7</button>
+            </div>
+            <div class="col-3">
+                <button class="numberBtn btn btn-outline-secondary" id="8Btn" data-number="8">8</button>
+            </div>
+            <div class="col-3">
+                <button class="numberBtn btn btn-outline-secondary" id="8Btn" data-number="9">9</button>
+            </div>
+            <div class="col-3">
+                <button class="operatorBtn btn btn-outline-primary" id="addBtn" data-operation="+">+</button>
+            </div>
+            <!-- 2nd row input buttons -->
+            <div class="col-3">
+                <button class="numberBtn btn btn-outline-secondary" id="4Btn" data-number="4">4</button>
+            </div>
+            <div class="col-3">
+                <button class="numberBtn btn btn-outline-secondary" id="5Btn" data-number="5">5</button>
+            </div>
+            <div class="col-3">
+                <button class="numberBtn btn btn-outline-secondary" id="6Btn" data-number="6">6</button>
+            </div>
+            <div class="col-3">
+                <button class="operatorBtn btn btn-outline-primary" id="subBtn" data-operation="-">-</button>
+            </div>
+            <!-- 3rd row input buttons -->
+            <div class="col-3">
+                <button class="numberBtn btn btn-outline-secondary" id="1Btn" data-number="1">1</button>
+            </div>
+            <div class="col-3">
+                <button class="numberBtn btn btn-outline-secondary" id="2Btn" data-number="2">2</button>
+            </div>
+            <div class="col-3">
+                <button class="numberBtn btn btn-outline-secondary" id="3Btn" data-number="3">3</button>
+            </div>
+            <div class="col-3">
+                <button class="operatorBtn btn btn-outline-primary" id="multBtn" data-operation="*">*</button>
+            </div>
+            <!-- 4th row input buttons -->
+            <div class="col-3">
+                <button class="numberBtn btn btn-outline-secondary" id="0Btn" data-number="0">0</button>
+            </div>
+            <div class="col-3">
+                <button class="numberBtn btn btn-outline-secondary" id="decimalBtn" data-number=".">.</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-outline-success" id="equalBtn">=</button>
+            </div>
+            <div class="col-3">
+                <button class="operatorBtn btn btn-outline-primary" id="divBtn" data-operation="/">/</button>
+            </div>
+        </div>
+        <!-- output -->
+        <div id="outputContainer" class="row">
+            <!-- <div class="row"> -->
+            <div class="col">
+                <h2 id="output" class="my-3"></h2>
+            </div>
+        </div>
+        <!-- entries -->
+        <div id="calcsContainer" class="row">
+            <div class="col">
+                <ul id="calcsListOnDOM" class="list-group">
+                </ul>
+            </div>
+        </div>
     </div>
 </body>
 

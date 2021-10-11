@@ -1,14 +1,17 @@
 .deleteEntry {
   font-size: 0.5rem;
   padding: 0.15rem 0.25rem;
+  width: 2rem;
 }
-
-#inputsContainer {
-  max-width: 415px;
+#interfaceContainer {
+  max-width: 450px;
 }
-#displayContainer {
+#inputContainer {
+  max-width: 400px;
+}
+/* #displayContainer {
   max-width: 500px;
-}
+} */
 #calcInput {
   caret-color: transparent;
 }
@@ -18,9 +21,36 @@
 #calcInput:focus-visible {
   outline: none;
 }
-#calcsListOnDOM li {
+/* #calcsListOnDOM li {
   max-width: fit-content;
+  list-style-type: none;
+  border: 1px solid var(--bs-secondary);
+  border-radius: 0.25rem;
+}*/
+#calcsListOnDOM li:hover {
+  cursor: pointer;
 }
-button {
-  margin: 0.145rem;
+/* #interfaceContainer button {
+  margin: 0.05rem;
+} */
+#interfaceContainer button:focus {
+  box-shadow: none;
+}
+#inputContainer button {
+  display: inline-block;
+  /* padding: 0.4rem 3rem; */
+  width: 100%;
+}
+#displayContainer button,
+#displayContainer input {
+  display: inline-block;
+  /* padding: 0.4rem 3rem; */
+  width: 100%;
+  height: 100%;
+}
+.list-group-item.active {
+  z-index: 2;
+  color: rgb(0, 0, 0);
+  background-color: #9bbcee;
+  border-color: #9bbcee;
 }

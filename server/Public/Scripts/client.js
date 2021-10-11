@@ -128,7 +128,12 @@ function render(calcsList) {
     for (let i = 0; i < calcsList.length; i++) {
       // each calculation will be captured as a JQ object so data can be added to it
       let calc = $(`
-        <li class="entry">${calcsList[i].value1} ${calcsList[i].operation} ${calcsList[i].value2} = ${calcsList[i].answer}</li>
+        <li class="entry list-group-item d-flex justify-content-between p-2">
+            <div>
+                <span>${calcsList[i].value1} ${calcsList[i].operation} ${calcsList[i].value2} = </span> 
+                <span class="ansSpan">${calcsList[i].answer}</span>
+            </div>
+        </li>
         `);
       // data is added to the calc li
       calc.data("value1", calcsList[i].value1);
@@ -137,21 +142,36 @@ function render(calcsList) {
       calc.data("index", i);
       // add a delete button
       calc.append(
-        `<button class="deleteEntry btn btn-outline-danger">X</button>`
+        `<button class="deleteEntry btn btn-outline-danger ms-2">X</button>`
       );
       // append to the DOM
       $("#calcsListOnDOM").append(calc);
     }
+    // $("#ans0").addClass("bold");
+    $("#calcsListOnDOM li:nth-child(1)").find(".ansSpan").addClass("fw-bold");
+  }
+}
+// remove active class from entries
+function removeActiveClass() {
+  let entries = $("#calcsListOnDOM").children("li");
+  for (let entry of entries) {
+    $(entry).removeClass("active");
   }
 }
 // clear inputs function
 function clearInputs() {
   $("#calcInput").val("");
+  removeActiveClass();
 }
 // function to clear inputs AND reset output to 0
 function allClear() {
   clearInputs();
   $("#output").text("0");
+  // unbold the entry answer that corresponded to the current output
+  let answers = $("#calcsListOnDOM").find("span");
+  for (let answer of answers) {
+    $(answer).removeClass("fw-bold");
+  }
 }
 
 function backspace() {
@@ -159,11 +179,17 @@ function backspace() {
   let calcString = input.val();
   calcString = calcString.slice(0, -1);
   input.val(calcString);
+  removeActiveClass();
 }
 
 // function to run an entry from the list
 function runEntry() {
   let index = $(this).data("index");
+  removeActiveClass();
+  // make this the active entry visually
+  $(this).addClass("active");
+  // make this entry's answer the active one visually (corresponds to the current output on the DOM)
+  $(this).find(".ansSpan").addClass("fw-bold");
   if ($(this).attr("class") !== "deleteEntry") {
     $.ajax({
       method: "GET",
