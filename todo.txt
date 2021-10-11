@@ -43,7 +43,7 @@ Base mode
 
 Stretch mode
 
-    [ ] convert the interface as shown
+    [x] convert the interface as shown
 
     [x] button to clear history
         [x] calls a DELETE request

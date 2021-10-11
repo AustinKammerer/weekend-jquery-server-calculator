@@ -16,49 +16,38 @@
     <header>
         <h1>Server Side Calculator</h1>
     </header>
-    <div id="interfaceContainer" class="container mb-2">
-        <div id="displayContainer" class="container mb-2">
+    <div id="interfaceContainer" class="container mb-2 p-0">
+        <div id="displayContainer" class="container mb-2 p-0">
             <div class="row">
-                <input class="col" type="number" id="value1Input" placeholder="value 1">
-                <input class="col" type="number" id="value2Input" placeholder="value 2">
-                <button class="col-1 btn btn-outline-secondary" id="clearBtn">C</button>
-                <button class="col-1 btn btn-outline-secondary" id="allClearBtn">AC</button>
-                <button class="col-1 btn btn-outline-secondary" id="entriesClearBtn" data-index="all">EC</button>
+                <input class="col-6" type="text" id="calcInput" placeholder="ready for input">
+                <button class="col btn btn-outline-secondary" id="delBtn">DEL</button>
+                <button class="col btn btn-outline-secondary" id="clearBtn">C</button>
+                <button class="col btn btn-outline-secondary" id="allClearBtn">AC</button>
+                <button class="col btn btn-outline-secondary" id="entriesClearBtn" data-index="all">EC</button>
             </div>
         </div>
         <div id="inputsContainer" class="container mb-2">
             <div class="row">
-                <button class="col numberBtn btn btn-outline-secondary" id="7Btn" data-number="7"
-                    data-operation="">7</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="8Btn" data-number="8"
-                    data-operation="">8</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="8Btn" data-number="9"
-                    data-operation="">9</button>
+                <button class="col numberBtn btn btn-outline-secondary" id="7Btn" data-number="7">7</button>
+                <button class="col numberBtn btn btn-outline-secondary" id="8Btn" data-number="8">8</button>
+                <button class="col numberBtn btn btn-outline-secondary" id="8Btn" data-number="9">9</button>
                 <button class="col operatorBtn btn btn-outline-secondary" id="addBtn" data-operation="+">+</button>
             </div>
             <div class="row">
-                <button class="col numberBtn btn btn-outline-secondary" id="4Btn" data-number="4"
-                    data-operation="">4</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="5Btn" data-number="5"
-                    data-operation="">5</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="6Btn" data-number="6"
-                    data-operation="">6</button>
+                <button class="col numberBtn btn btn-outline-secondary" id="4Btn" data-number="4">4</button>
+                <button class="col numberBtn btn btn-outline-secondary" id="5Btn" data-number="5">5</button>
+                <button class="col numberBtn btn btn-outline-secondary" id="6Btn" data-number="6">6</button>
                 <button class="col operatorBtn btn btn-outline-secondary" id="subBtn" data-operation="-">-</button>
             </div>
             <div class="row">
-                <button class="col numberBtn btn btn-outline-secondary" id="1Btn" data-number="1"
-                    data-operation="">1</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="2Btn" data-number="2"
-                    data-operation="">2</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="3Btn" data-number="3"
-                    data-operation="">3</button>
+                <button class="col numberBtn btn btn-outline-secondary" id="1Btn" data-number="1">1</button>
+                <button class="col numberBtn btn btn-outline-secondary" id="2Btn" data-number="2">2</button>
+                <button class="col numberBtn btn btn-outline-secondary" id="3Btn" data-number="3">3</button>
                 <button class="col operatorBtn btn btn-outline-secondary" id="multBtn" data-operation="*">*</button>
             </div>
             <div class="row">
-                <button class="col numberBtn btn btn-outline-secondary" id="0Btn" data-number="0"
-                    data-operation="">0</button>
-                <button class="col numberBtn btn btn-outline-secondary" id="decimalBtn" data-number="."
-                    data-operation="">.</button>
+                <button class="col numberBtn btn btn-outline-secondary" id="0Btn" data-number="0">0</button>
+                <button class="col numberBtn btn btn-outline-secondary" id="decimalBtn" data-number=".">.</button>
                 <button class="col btn btn-outline-secondary" id="equalBtn">=</button>
                 <button class="col operatorBtn btn btn-outline-secondary" id="divBtn" data-operation="/">/</button>
             </div>

@@ -24,17 +24,26 @@ app.get("/calculate", (req, res) => {
 app.post("/calculate", (req, res) => {
   let calcToMake = req.body;
   console.log("POST Request:", calcToMake);
+  let validOperator = functions.validatedTerms(calcToMake).operator;
+  let validValues = functions.validatedTerms(calcToMake).values;
   if (
-    !functions.validateOperation(calcToMake) ||
-    !functions.validateValue1(calcToMake) ||
-    !functions.validateValue2(calcToMake)
+    // !functions.validateOperation(calcToMake) ||
+    // !functions.validateValue1(calcToMake) ||
+    // !functions.validateValue2(calcToMake)
+    validOperator === false ||
+    validValues === false
   ) {
-    res.status(400).send({ msg: functions.errorMsg(calcToMake) });
-  } else if (
-    functions.validateOperation(calcToMake) &&
-    functions.validateValue1(calcToMake) &&
-    functions.validateValue2(calcToMake)
-  ) {
+    console.log(validOperator, validValues);
+    res.status(400).send({ msg: "INVALID OPERATOR AND/OR VALUES" });
+  }
+  //   if (
+  //     // functions.validateOperation(calcToMake) &&
+  //     // functions.validateValue1(calcToMake) &&
+  //     // functions.validateValue2(calcToMake)
+  //     // functions.validateOperator(calcToMake) &&
+  //     // functions.validateValues(calcToMake)
+  //   )
+  else {
     calcsList.unshift(functions.validatedCalculate(calcToMake));
     console.log("calcList:", calcsList);
     // calculate adds an answer property to the request

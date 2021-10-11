@@ -1,58 +1,82 @@
 $(pageLoad);
 
 function pageLoad() {
-  // determine the desired operation
-  $(".operatorBtn").on("click", setOperation);
+  // add inputs to input field
+  $(".operatorBtn, .numberBtn").on("click", sendToInput);
   // calculate the desired operation
   $("#equalBtn").on("click", calculate);
+  // backspace button
+  $("#delBtn").on("click", backspace);
   // clear inputs
   $("#clearBtn").on("click", clearInputs);
   // all clear (inputs and output)
   $("#allClearBtn").on("click", allClear);
   // clear all entries
   $("#entriesClearBtn").on("click", entryClear);
-  // initialize DOM
-  getCalculations();
   // click listener for entry li elements
   $("#calcsListOnDOM").on("click", ".entry", runEntry);
   // click listener for entry delete buttons
   $("#calcsListOnDOM").on("click", ".deleteEntry", entryClear);
+  // disable keyboard when in input field
+  $("#calcInput").keydown(function (event) {
+    return false;
+  });
+  // initialize DOM
+  getCalculations();
+  allClear();
 }
 
-function setOperation() {
-  // get data from the btn clicked
-  let operation = $(this).data("operation");
-  // set equalBtn data-operation to empty string (in case of multiple operatorBtn clicked)
-  $("#equalBtn").data("operation", "");
-  // set equalBtn data-operation to operation
-  $("#equalBtn").data("operation", operation);
-  // remove .selected from all other operatorBtns
-  $(".operatorBtn").removeClass("selected");
-  // add .selected to operatorBtn
-  $(this).addClass("selected");
+function sendToInput() {
+  let input = $("#calcInput");
+  if ($(this).data("number")) {
+    let num = $(this).data("number");
+    input.val(input.val() + num);
+  } else if ($(this).data("operation")) {
+    let operation = $(this).data("operation");
+    // only add an operator if the last input is not also an operator
+    if (
+      input.val()[input.val().length - 1] !== "+" &&
+      input.val()[input.val().length - 1] !== "-" &&
+      input.val()[input.val().length - 1] !== "*" &&
+      input.val()[input.val().length - 1] !== "/" &&
+      !hasOperators(input.val())
+    ) {
+      if (!input.val()) {
+        // forces a first value to be input
+        input.val($("#output").text() + operation);
+      } else {
+        input.val(input.val() + operation);
+      }
+    } else {
+      alert("ONLY ONE OPERATOR PLEASE");
+    }
+  }
 }
+// server is only coded for one operation per request
+function hasOperators(string) {
+  let hasOperators = false;
+  let arr = [...string];
+  for (let term of arr) {
+    if (term === "+" || term === "-" || term === "*" || term === "/") {
+      hasOperators = true;
+    }
+  }
+  return hasOperators;
+}
+
 // POST function
 function calculate() {
-  // validate inputs
-  let value1 = $("#value1Input").val();
-  let value2 = $("#value2Input").val();
-  let operation = $("#equalBtn").data("operation");
+  // validate input
+  let calcString = $("#calcInput").val();
   let valid = true;
-  // if any input is an empty string (operation starts as empty string), valid is flipped to false
-  if (operation === "") {
-    alert("SELECT OPERATOR");
-    valid = false;
-  }
-  if (value1 === "") {
-    // alert("ENTER VALUE 1");
-    // valid = false;
-    // if value 1 is not passed, set the input value to the current output
-    $("#value1Input").val($("#output").text());
-    // and reassign value1
-    value1 = $("#value1Input").val();
-  }
-  if (value2 === "") {
-    alert("ENTER VALUE 2");
+  // input string must not end with an operator
+  if (
+    calcString[calcString.length - 1] === "+" ||
+    calcString[calcString.length - 1] === "-" ||
+    calcString[calcString.length - 1] === "*" ||
+    calcString[calcString.length - 1] === "/"
+  ) {
+    alert("ENTER A FINAL VALUE");
     valid = false;
   }
   // only trigger POST if valid is not flipped to false
@@ -61,9 +85,7 @@ function calculate() {
       method: "POST",
       url: "/calculate",
       data: {
-        value1: value1,
-        value2: value2,
-        operation: operation,
+        calcString: calcString,
       },
     })
       .then(function (res) {
@@ -86,7 +108,7 @@ function getCalculations() {
     .then(function (res) {
       console.log("GET SUCCESS", res);
       render(res);
-      $("#equalBtn").data("operation", ""); // sets/resets data-operation
+      $("#calcInput").val("");
     })
     .catch(function (err) {
       console.log("GET FAIL", err);
@@ -95,7 +117,6 @@ function getCalculations() {
 }
 // render function
 function render(calcsList) {
-  //   output.empty();
   $("#calcsListOnDOM").empty();
   // display 0 if there is not a list yet
   if (calcsList.length === 0) {
@@ -125,10 +146,7 @@ function render(calcsList) {
 }
 // clear inputs function
 function clearInputs() {
-  $("#value1Input").val("");
-  $("#value2Input").val("");
-  $("#equalBtn").data("operation", "");
-  $(".operatorBtn").removeClass("selected");
+  $("#calcInput").val("");
 }
 // function to clear inputs AND reset output to 0
 function allClear() {
@@ -136,32 +154,36 @@ function allClear() {
   $("#output").text("0");
 }
 
+function backspace() {
+  let input = $("#calcInput");
+  let calcString = input.val();
+  calcString = calcString.slice(0, -1);
+  input.val(calcString);
+}
+
 // function to run an entry from the list
 function runEntry() {
-  //   $("#value1Input").val($(this).data("value1"));
-  //   $("#value2Input").val($(this).data("value2"));
   let index = $(this).data("index");
-  $.ajax({
-    method: "GET",
-    url: `/entry/${index}`,
-  })
-    .then(function (res) {
-      console.log("GET SUCCESS", res);
-      $("#value1Input").val(res.value1);
-      $("#value2Input").val(res.value2);
-      $("#output").text(res.answer);
-      $(".operatorBtn").removeClass("selected");
-      $(`[data-operation="${res.operation}"]`).addClass("selected");
+  if ($(this).attr("class") !== "deleteEntry") {
+    $.ajax({
+      method: "GET",
+      url: `/entry/${index}`,
     })
-    .catch(function (err) {
-      console.log("GET FAIL", err);
-      alert(`SERVER ERROR: ${err.status} (${err.statusText})`);
-    });
+      .then(function (res) {
+        console.log("GET SUCCESS", res);
+        $("#calcInput").val(res.calcString);
+        $("#output").text(res.answer);
+      })
+      .catch(function (err) {
+        console.log("GET FAIL", err);
+        alert(`SERVER ERROR: ${err.status} (${err.statusText})`);
+      });
+  }
 }
 
 // function to clear all entries, inputs, and reset output to 0
 function entryClear() {
-  allClear();
+  //   allClear();
   let index;
   if ($(this).attr("id") === "entriesClearBtn") {
     index = $(this).data("index");
