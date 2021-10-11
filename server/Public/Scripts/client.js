@@ -147,7 +147,7 @@ function render(calcsList) {
       // append to the DOM
       $("#calcsListOnDOM").append(calc);
     }
-    // $("#ans0").addClass("bold");
+    // make the answer of the most recent calculation bold
     $("#calcsListOnDOM li:nth-child(1)").find(".ansSpan").addClass("fw-bold");
   }
 }
@@ -177,8 +177,10 @@ function allClear() {
 function backspace() {
   let input = $("#calcInput");
   let calcString = input.val();
+  // remove the last character from the input string
   calcString = calcString.slice(0, -1);
   input.val(calcString);
+  // entry no longer active in the display
   removeActiveClass();
 }
 
@@ -209,13 +211,15 @@ function runEntry() {
 
 // function to clear all entries, inputs, and reset output to 0
 function entryClear() {
-  //   allClear();
   let index;
+  // will remove all entries if EC is clicked
   if ($(this).attr("id") === "entriesClearBtn") {
     index = $(this).data("index");
   } else {
+    // will only remove the entry in which a delete button was clicked
     index = $(this).parent("li").data("index");
   }
+  // send index as a request param
   $.ajax({
     method: "DELETE",
     url: `/entry/${index}`,
