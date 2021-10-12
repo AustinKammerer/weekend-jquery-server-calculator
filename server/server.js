@@ -12,7 +12,7 @@ app.listen(PORT, () => {
   console.log("App running on port", PORT);
 }); // start the server
 
-app.use(express.static("server/public")); // static files route
+app.use(express.static("server/Public")); // static files route
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
