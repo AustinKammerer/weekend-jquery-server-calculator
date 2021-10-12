@@ -5,8 +5,8 @@ const calcsList = require("./Modules/calcsList.js");
 const functions = require("./Modules/functions.js");
 
 const app = express(); // express server
-
-const PORT = 5000; // Port number
+// environment variable for deployment
+const PORT = process.env.PORT || 5000; // Port number
 
 app.listen(PORT, () => {
   console.log("App running on port", PORT);
